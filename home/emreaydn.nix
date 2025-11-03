@@ -7,8 +7,6 @@
 
   programs.home-manager.enable = true;
   home.packages = with pkgs; [
-    alacritty
-
     lazygit
 
     bat
@@ -27,6 +25,8 @@
     jq
     tldr
 
+    niri
+
     lunarvim
     zoxide
     firefox
@@ -38,7 +38,11 @@
 
   imports = [
     ./modules/git.nix
+    ./modules/nixvim.nix
     ./modules/shell.nix
-    ./modules/hyprland.nix
+    ./modules/niri.nix
+    ./modules/stylix.nix
+    ./modules/kitty.nix
+    # ./modules/hyprland.nix
   ];
 }
