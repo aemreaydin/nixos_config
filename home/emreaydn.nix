@@ -31,8 +31,8 @@
     zip
 
     fuzzel
-    wofi
-    rofi
+    swaylock
+
     yazi
     jq
     tldr
@@ -53,7 +53,7 @@
     ./modules/zen.nix 
     ./modules/stylix.nix
     ./modules/kitty.nix
-    ./modules/niri.nix
+    ./modules/niri
     # ./modules/hyprland.nix
   ];
 }
