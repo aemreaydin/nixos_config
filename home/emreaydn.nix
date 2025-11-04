@@ -33,6 +33,7 @@
     fuzzel
     swaylock
 
+    libnotify
     yazi
     jq
     tldr
@@ -51,9 +52,11 @@
     ./modules/nixvim.nix
     ./modules/shell.nix
     ./modules/zen.nix 
-    ./modules/stylix.nix
     ./modules/kitty.nix
+    ./modules/mako.nix
     ./modules/niri
+    ./modules/catppuccin.nix
+    # ./modules/stylix
     # ./modules/hyprland.nix
   ];
 }

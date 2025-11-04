@@ -22,7 +22,7 @@ in
 
     "Super+H".action = focus-column-left;
     "Super+J".action = focus-window-or-workspace-down;
-    "Super+K".action = focus-window-up;
+    "Super+K".action = focus-window-or-workspace-up;
     "Super+L".action = focus-column-right;
     "Super+Shift+H".action = move-column-left;
     "Super+Shift+J".action = move-window-down-or-to-workspace-down;

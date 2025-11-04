@@ -18,6 +18,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    catppuccin.url = "github:catppuccin/nix";
     niri = {
       url = "github:sodiboo/niri-flake";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -36,7 +37,7 @@
     };
   };
 
-  outputs = { nixpkgs, stylix, nixvim, niri, home-manager, neovim-nightly-overlay, zen-browser, nur, ... } : 
+  outputs = { nixpkgs, catppuccin, stylix, nixvim, niri, home-manager, neovim-nightly-overlay, zen-browser, nur, ... } : 
   let
     system = "x86_64-linux";
   in
@@ -58,6 +59,8 @@
               nixvim.homeModules.nixvim
               zen-browser.homeModules.beta
               niri.homeModules.niri
+              niri.homeModules.stylix
+              catppuccin.homeModules.catppuccin
             ];
             home-manager.backupFileExtension = "_bk";
             home-manager.extraSpecialArgs = {
