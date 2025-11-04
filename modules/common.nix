@@ -3,6 +3,7 @@
 {
   imports = [
     ./packages.nix
+    ./cachix.nix
   ];
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
@@ -15,10 +16,23 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
+programs.dconf.enable = true;
   # Services
-  services = {
-    displayManager.gdm.enable = true;
-    desktopManager.gnome.enable = true;
+  services.greetd = {
+    enable = true;
+    settings = {
+      default_session = {
+        command = "${pkgs.tuigreet}/bin/tuigreet --time --cmd niri-session";
+        user = "emreaydn";
+      };
+    };
+    # xserver.enable = true;
+    # displayManager.defaultSession = "gnome-xorg";
+    # desktopManager.gnome.enable = true;
+    # displayManager.gdm.enable = true;
+    # displayManager.gdm.wayland
+    # displayManager.sddm.enable = true;
+    # displayManager.sddm.wayland.enable = true;
   };
 
   services.xserver.xkb = {
@@ -42,4 +56,9 @@
     shell = pkgs.zsh;
     extraGroups = [ "networkmanager" "wheel" ];
   };
+
+  hardware.enableRedistributableFirmware = true;
+  hardware.enableAllFirmware = true;
+
+  nixpkgs.config.allowUnfree = true;
 }
