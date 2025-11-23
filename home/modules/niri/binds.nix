@@ -1,14 +1,14 @@
 { config, ... }:
 let
   TERMINAL = "kitty";
-  LAUNCHER = "fuzzel";
+  LAUNCHER = "vicinae";
   BROWSER = "zen-beta";
   LOCKER = "swaylock";
 in 
 {
   programs.niri.settings.binds = with config.lib.niri.actions; {
     "Super+Return".action = spawn TERMINAL;
-    "Alt+Space".action = spawn LAUNCHER;
+    "Alt+Space".action = spawn [LAUNCHER "toggle"];
     "Super+D".action = spawn LAUNCHER;
     "Super+B".action = spawn BROWSER;
     "Super+Alt+L".action = spawn LOCKER;

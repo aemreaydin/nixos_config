@@ -7,6 +7,7 @@
       font_family = "JetBrainsMono Nerd Font";
       font_size = 14;
 
+      window_padding_width = 4;
       hide_window_decorations = "yes";
       confirm_os_window_close = 0;
 

@@ -8,13 +8,9 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    awww.url = "git+https://codeberg.org/LGFae/awww";
     nur = {
       url = "github:nix-community/NUR";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    stylix = {
-      url = "github:nix-community/stylix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -30,6 +26,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    vicinae.url = "github:vicinaehq/vicinae";
+
     zen-browser = {
       url = "github:0xc000022070/zen-browser-flake";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -37,7 +35,7 @@
     };
   };
 
-  outputs = { nixpkgs, catppuccin, stylix, nixvim, niri, home-manager, neovim-nightly-overlay, zen-browser, nur, ... } : 
+  outputs = { nixpkgs, awww, catppuccin, vicinae, nixvim, niri, home-manager, neovim-nightly-overlay, zen-browser, nur, ... } : 
   let
     system = "x86_64-linux";
   in
@@ -55,17 +53,17 @@
             home-manager.useUserPackages = true;
             home-manager.users.emreaydn = import ./home/emreaydn.nix;
             home-manager.sharedModules = [ 
-              stylix.homeModules.stylix
+              vicinae.homeManagerModules.default
               nixvim.homeModules.nixvim
               zen-browser.homeModules.beta
               niri.homeModules.niri
-              niri.homeModules.stylix
               catppuccin.homeModules.catppuccin
             ];
             home-manager.backupFileExtension = "_bk";
             home-manager.extraSpecialArgs = {
               inherit neovim-nightly-overlay;
               inherit nur;
+              inherit awww;
             };
           }
         ];
