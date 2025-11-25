@@ -1,6 +1,6 @@
 { ... }:
-
 {
+  # Niri binary cache configuration
   nix = {
     settings = {
       substituters = [
@@ -12,4 +12,3 @@
     };
   };
 }
-
