@@ -18,6 +18,9 @@
 
     interactiveShellInit = ''
       eval "$(zoxide init zsh)"
+
+      # Bind Ctrl+Space to accept autosuggestion
+      bindkey '^ ' autosuggest-accept
     '';
 
     ohMyZsh = {
