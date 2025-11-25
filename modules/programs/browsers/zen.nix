@@ -1,10 +1,8 @@
-{ pkgs, zen-browser, nur, ... }:
-
+{ inputs, system, ... }:
 {
   # Install zen-browser package
   environment.systemPackages = [
-    zen-browser.packages.${pkgs.system}.default
-    # Extensions need to be installed manually or via the browser
+    inputs.zen-browser.packages.${system}.default
   ];
 
   # Note: Zen Browser policies and profile configuration
