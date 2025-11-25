@@ -1,4 +1,4 @@
-{ ... }: {
+{
   imports = [ ./binds.nix ];
 
   programs.niri = {
@@ -8,11 +8,7 @@
       prefer-no-csd = true;
       overview.workspace-shadow.enable = false;
 
-      input = {
-        keyboard = {
-          xkb.layout = "us";
-        };
-      };
+      input = { keyboard = { xkb.layout = "us"; }; };
 
       layout = {
         gaps = 4;
@@ -49,6 +45,13 @@
         };
         clip-to-geometry = true;
       }];
+
+      hotkey-overlay = { skip-at-startup = true; };
+
+      spawn-at-startup = [
+        { argv = [ "vicinae" ]; }
+        { argv = [ "awww-daemon" ]; }
+      ];
     };
   };
 }

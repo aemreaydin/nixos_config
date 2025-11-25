@@ -1,17 +1,18 @@
 { config, ... }:
 let
   TERMINAL = "kitty";
-  LAUNCHER = "fuzzel";
+  LAUNCHER = "vicinae";
   BROWSER = "zen-beta";
   LOCKER = "swaylock";
 in 
 {
   programs.niri.settings.binds = with config.lib.niri.actions; {
     "Super+Return".action = spawn TERMINAL;
-    "Alt+Space".action = spawn LAUNCHER;
+    "Super+Space".action = spawn [LAUNCHER "toggle"];
     "Super+D".action = spawn LAUNCHER;
     "Super+B".action = spawn BROWSER;
     "Super+Alt+L".action = spawn LOCKER;
+    "Super+Shift+Q".action = spawn "wlogout";
 
     "Super+Shift+Slash".action = show-hotkey-overlay;
 
@@ -22,7 +23,7 @@ in
 
     "Super+H".action = focus-column-left;
     "Super+J".action = focus-window-or-workspace-down;
-    "Super+K".action = focus-window-up;
+    "Super+K".action = focus-window-or-workspace-up;
     "Super+L".action = focus-column-right;
     "Super+Shift+H".action = move-column-left;
     "Super+Shift+J".action = move-window-down-or-to-workspace-down;
