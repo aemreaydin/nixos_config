@@ -1,5 +1,8 @@
 { pkgs, ... }:
 {
+  # Enable Niri compositor at system level
+  programs.niri.enable = true;
+
   # Display manager - greetd with tuigreet
   services.greetd = {
     enable = true;

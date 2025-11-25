@@ -20,18 +20,10 @@
     ../modules/services/printing.nix
 
     # Desktop environment
-    ../modules/desktop/niri.nix
-    ../modules/desktop/theme.nix
     ../modules/desktop/cachix.nix
 
     # Programs
-    ../modules/programs/terminal/zsh.nix
-    ../modules/programs/terminal/kitty.nix
-    ../modules/programs/editors/nixvim.nix
-    ../modules/programs/browsers/zen.nix
-    ../modules/programs/launchers/vicinae.nix
-    ../modules/programs/notifications/mako.nix
-    ../modules/programs/development/git.nix
+    ../modules/programs/gaming/steam.nix
 
     # Packages
     ../modules/packages/system.nix

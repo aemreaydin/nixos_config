@@ -13,7 +13,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    catppuccin.url = "github:catppuccin/nix";
+    matugen.url = "github:InioX/matugen";
 
     niri = {
       url = "github:sodiboo/niri-flake";
@@ -33,6 +33,11 @@
       url = "github:0xc000022070/zen-browser-flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    home-manager = {
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -40,30 +45,29 @@
     let
       # Import helper library
       lib = import ./lib { inherit inputs; };
+
+      # Home-manager shared modules (used across all hosts)
+      sharedModules = [
+        inputs.vicinae.homeManagerModules.default
+        inputs.nixvim.homeModules.nixvim
+        inputs.niri.homeModules.niri
+      ];
     in
     {
       nixosConfigurations = {
         desktop = lib.mkHost {
           hostname = "desktop";
-          system = "x86_64-linux";
+          inherit sharedModules;
           modules = [
-            # NixOS modules from flake inputs
             inputs.nixvim.nixosModules.nixvim
-            inputs.niri.nixosModules.niri
-            inputs.catppuccin.nixosModules.catppuccin
           ];
         };
 
         framework13 = lib.mkHost {
           hostname = "framework13";
-          system = "x86_64-linux";
+          inherit sharedModules;
           modules = [
-            # NixOS modules from flake inputs
             inputs.nixvim.nixosModules.nixvim
-            inputs.niri.nixosModules.niri
-            inputs.catppuccin.nixosModules.catppuccin
-
-            # Framework AMD AI 300 Series hardware support
             inputs.nixos-hardware.nixosModules.framework-amd-ai-300-series
           ];
         };

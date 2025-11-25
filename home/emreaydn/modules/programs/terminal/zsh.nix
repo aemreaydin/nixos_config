@@ -1,9 +1,9 @@
-{ pkgs, ... }:
+{ ... }:
 {
   programs.zsh = {
     enable = true;
     enableCompletion = true;
-    autosuggestions.enable = true;
+    autosuggestion.enable = true;
     syntaxHighlighting.enable = true;
 
     shellAliases = {
@@ -16,14 +16,15 @@
       cd = "z";
     };
 
-    interactiveShellInit = ''
+    initContent = ''
+      # Initialize zoxide
       eval "$(zoxide init zsh)"
 
       # Bind Ctrl+Space to accept autosuggestion
       bindkey '^ ' autosuggest-accept
     '';
 
-    ohMyZsh = {
+    oh-my-zsh = {
       enable = true;
       theme = "robbyrussell";
       plugins = [ "git" ];

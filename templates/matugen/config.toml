@@ -1,0 +1,30 @@
+# Matugen Configuration
+
+[config]
+reload_apps = true
+reload_apps_list = []
+
+[config.wallpaper]
+command = "awww"
+arguments = ["img"]
+set = true
+
+[templates.kitty]
+input_path = "~/.config/matugen/templates/kitty-colors.conf"
+output_path = "~/.config/kitty/colors.conf"
+
+[templates.kitty.hook]
+path = "pkill"
+arguments = ["-SIGUSR1", "kitty"]
+
+[templates.mako]
+input_path = "~/.config/matugen/templates/mako"
+output_path = "~/.config/mako/colors"
+
+[templates.mako.hook]
+path = "makoctl"
+arguments = ["reload"]
+
+[templates.pywalfox]
+input_path = "~/.config/matugen/templates/pywalfox-colors.json"
+output_path = "~/.config/pywalfox/colors.json"

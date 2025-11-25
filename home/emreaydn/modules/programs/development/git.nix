@@ -2,11 +2,13 @@
 {
   programs.git = {
     enable = true;
-    config = {
+
+    settings = {
       user.name = "aemreaydin";
       user.email = "aeaydin1@gmail.com";
       init.defaultBranch = "main";
     };
+
     lfs.enable = true;
   };
 }

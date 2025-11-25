@@ -1,0 +1,214 @@
+                                                                           
+● User approved Claude's plan
+  ⎿  Matugen Integration Plan - System-Level (No Home Manager)
+
+     Overview
+
+     Replace Catppuccin with matugen for dynamic Material You theming from 
+     wallpapers, using system-level configuration only.
+
+     Phase 1: Foundation Setup
+
+     1.1 Update flake.nix
+
+     - Remove: catppuccin input and modules
+     - Add: matugen.url = "github:InioX/matugen"
+     - Add: matugen package to overlays or packages
+
+     1.2 Create directory structure
+
+     dotfiles/
+     ├── templates/
+     │   └── matugen/
+     │       ├── kitty.conf
+     │       ├── mako.conf
+     │       ├── gtk3.css
+     │       ├── gtk4.css
+     │       ├── niri.kdl
+     │       └── firefox-pywalfox.json
+     └── modules/
+         ├── desktop/
+         │   └── matugen.nix  (replaces theme.nix)
+         └── programs/
+             └── wallpaper-selector.nix
+
+     Phase 2: Remove Catppuccin
+
+     2.1 Delete/Update files
+
+     - Delete modules/desktop/theme.nix
+     - Remove catppuccin from flake.nix inputs
+     - Remove inputs.catppuccin.nixosModules.catppuccin from both hosts
+     - Update Vicinae config to use a neutral theme or keep 
+     catppuccin-frappe
+
+     Phase 3: Install Matugen System-Wide
+
+     3.1 Create modules/desktop/matugen.nix
+
+     - Install matugen binary via environment.systemPackages
+     - Place matugen config.toml via 
+     environment.etc."xdg/matugen/config.toml"
+     - Configure templates for: kitty, mako, GTK3, GTK4, Niri
+     - Set wallpaper daemon to awww (you already have this)
+     - Place all templates via environment.etc."xdg/matugen/templates/..."
+
+     3.2 Template configuration
+
+     Each template will include:
+     - input_path: Path to template in /etc/xdg/matugen/templates/
+     - output_path: User's config directory (e.g., 
+     ~/.config/kitty/colors.conf)
+     - post_hook: Command to reload the app (e.g., pkill -SIGUSR1 kitty)
+
+     Phase 4: Application Configuration
+
+     4.1 High Priority (Full Support)
+
+     Kitty (modules/programs/terminal/kitty.nix):
+     - Download template from matugen-themes
+     - Update configs/kitty/kitty.conf to add: include 
+     ~/.config/kitty/colors.conf
+     - Post-hook: pkill -SIGUSR1 kitty
+
+     Mako (modules/programs/notifications/mako.nix):
+     - Download template from matugen-themes
+     - Update configs/mako/config to add: include ~/.config/mako/colors.conf
+     - Post-hook: makoctl reload
+
+     GTK Applications:
+     - Create new module: modules/desktop/gtk.nix
+     - Add GTK3/GTK4 templates
+     - Configure to include generated colors.css in gtk.css
+     - Themes all GTK apps system-wide
+
+     4.2 Medium Priority (Needs Custom Templates)
+
+     Niri (modules/desktop/niri.nix):
+     - Create custom KDL template for niri border colors
+     - Extract color values to separate file
+     - Update configs/niri/config.kdl to include color values
+     - May need manual color value updates or custom template
+
+     Firefox (replace Zen Browser):
+     - Add Firefox to packages/desktop.nix
+     - Install Pywalfox extension (one-time manual setup)
+     - Create pywalfox template
+     - Firefox will auto-theme when wallpaper changes
+     - Remove zen-browser from config
+
+     4.3 Low Priority (Static/Manual)
+
+     Vicinae:
+     - Keep current catppuccin-frappe theme (doesn't affect workflow)
+     - OR: Switch to Rofi/Fuzzel which have better matugen support
+
+     Zsh:
+     - Keep current configuration (zsh itself doesn't need colors)
+     - Optional: Add Starship prompt with matugen template
+
+     Neovim:
+     - Keep current configuration initially
+     - Later: Add neovim template if desired (complex setup)
+
+     Phase 5: Wallpaper Selector Script
+
+     5.1 Create modules/programs/wallpaper-selector.nix
+
+     - Install fzf if not already present
+     - Create wallpaper selector script:
+     #!/bin/sh
+     WALLPAPER_DIR="$HOME/Pictures/Wallpapers"
+     wallpaper=$(find "$WALLPAPER_DIR" -type f \( -name "*.jpg" -o -name 
+     "*.png" \) | fzf --preview 'kitten icat --clear --transfer-mode=memory 
+     --stdin=no --place=${FZF_PREVIEW_COLUMNS}x${FZF_PREVIEW_LINES}@0x0 {}')
+
+     if [ -n "$wallpaper" ]; then
+       matugen image "$wallpaper"
+     fi
+     - Make script available system-wide via environment.systemPackages
+
+     5.2 Add Niri keybind
+
+     - Update configs/niri/config.kdl
+     - Add keybind: Mod+W { spawn "wallpaper-selector"; }
+
+     Phase 6: Testing & Verification
+
+     6.1 Initial theme generation
+
+     - Manually run: matugen image 
+     ~/Pictures/Wallpapers/<some-wallpaper>.jpg
+     - Verify theme files generated in ~/.config/
+
+     6.2 Test wallpaper selector
+
+     - Press Mod+W in Niri
+     - Select wallpaper
+     - Verify:
+       - Wallpaper changes via awww
+       - Kitty colors update (may need to open new window)
+       - Mako colors update
+       - GTK apps reflect new theme
+
+     6.3 Firefox Pywalfox setup
+
+     - Open Firefox
+     - Install Pywalfox extension
+     - Grant native messaging permissions
+     - Test wallpaper change triggers Firefox theme update
+
+     Expected Results
+
+     ✅ Working: Kitty, Mako, GTK apps, Firefox (via Pywalfox), Niri 
+     (partial)
+     ⚠️ Partial: Niri border colors (may need custom template refinement)
+     📝 Manual: Vicinae (keeps static theme), Neovim (optional later)
+
+     File Changes Summary
+
+     New files (14):
+     - modules/desktop/matugen.nix
+     - modules/desktop/gtk.nix
+     - modules/programs/wallpaper-selector.nix
+     - templates/matugen/kitty.conf
+     - templates/matugen/mako.conf
+     - templates/matugen/gtk3.css
+     - templates/matugen/gtk4.css
+     - templates/matugen/niri.kdl
+     - templates/matugen/firefox-pywalfox.json
+
+     Modified files (6):
+     - flake.nix (remove catppuccin, add matugen)
+     - configs/kitty/kitty.conf (add include line)
+     - configs/mako/config (add include line)
+     - configs/niri/config.kdl (add keybind, possibly color include)
+     - modules/packages/desktop.nix (add firefox, remove zen if desired)
+     - hosts/common.nix (update imports)
+
+     Deleted files (2):
+     - modules/desktop/theme.nix
+     - modules/programs/browsers/zen.nix (if switching to Firefox)
+
+     Notes
+
+     - Templates will be downloaded from matugen-themes repo and customized 
+     as needed
+     - First wallpaper change may require logging out/in for GTK themes to 
+     fully apply
+     - Firefox theme updates automatically with Pywalfox once set up
+     - Niri template may need iteration to get colors perfect
+     - Script creates ~/Pictures/Wallpapers/ if it doesn't exist
+
+
+
+
+  ⎿  Session limit reached ∙ resets 3pm
+     /upgrade to increase your usage limit.
+
+> Can you save the plan to use it for later 
+  ⎿  Session limit reached ∙ resets 3pm
+     /upgrade to increase your usage limit.
+
+
+

@@ -1,33 +1,14 @@
 { pkgs, ... }:
 {
+  # Essential system-level CLI tools
+  # User-specific tools moved to home-manager
   environment.systemPackages = with pkgs; [
-    # System monitoring
-    btop
-    fastfetch
-
-    # File management
-    yazi
-    eza
-    fd
-    ripgrep
-    fzf
-    zoxide
-
-    # Utilities
-    bat
-    xclip
-    jq
-    tldr
-
-    # Network tools
+    # Network tools (essential for system maintenance)
     wget
     curl
 
-    # Archive tools
+    # Archive tools (needed for system operations)
     unzip
     zip
-
-    # Version control
-    lazygit
   ];
 }
