@@ -46,6 +46,10 @@
         clip-to-geometry = true;
       }];
 
+      hotkey-overlay = {
+        skip-at-startup = true;
+      };
+
       spawn-at-startup = [
         { argv = [ "vicinae" ]; }
         { argv = [ "awww-daemon" ]; }

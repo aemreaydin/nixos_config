@@ -8,10 +8,11 @@ in
 {
   programs.niri.settings.binds = with config.lib.niri.actions; {
     "Super+Return".action = spawn TERMINAL;
-    "Alt+Space".action = spawn [LAUNCHER "toggle"];
+    "Super+Space".action = spawn [LAUNCHER "toggle"];
     "Super+D".action = spawn LAUNCHER;
     "Super+B".action = spawn BROWSER;
     "Super+Alt+L".action = spawn LOCKER;
+    "Super+Shift+Q".action = spawn "wlogout";
 
     "Super+Shift+Slash".action = show-hotkey-overlay;
 

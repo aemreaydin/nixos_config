@@ -16,6 +16,12 @@
     cachix
     mesa-demos
 
+
+    gemini-cli
+
+    gh
+    gh-dash
+
     xclip
     bat
     eza
@@ -29,7 +35,6 @@
     unzip
     zip
 
-    fuzzel
     swaylock
 
     libnotify
@@ -41,7 +46,6 @@
     swww
     zoxide
     firefox
-    steam
   ];
   home.shellAliases = {
     vi = "lvim";
@@ -58,6 +62,7 @@
     ./modules/niri
     ./modules/catppuccin.nix
     ./modules/vicinae.nix
+    ./modules/wlogout
     # ./modules/stylix
     # ./modules/hyprland.nix
   ];
