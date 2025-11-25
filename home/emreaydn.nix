@@ -62,7 +62,8 @@
     ./modules/niri
     ./modules/catppuccin.nix
     ./modules/vicinae.nix
-    ./modules/wlogout
+
+    # ./modules/wlogout
     # ./modules/stylix
     # ./modules/hyprland.nix
   ];

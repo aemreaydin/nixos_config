@@ -35,40 +35,39 @@
     };
   };
 
-  outputs = { nixpkgs, awww, catppuccin, vicinae, nixvim, niri, home-manager, neovim-nightly-overlay, zen-browser, nur, ... } : 
-  let
-    system = "x86_64-linux";
-  in
-  {
-    nixosConfigurations = {
-      desktop = nixpkgs.lib.nixosSystem {
-        inherit system;
-        modules = [
-          ./hosts/desktop/configuration.nix
-          ./modules/common.nix
+  outputs = { nixpkgs, awww, catppuccin, vicinae, nixvim, niri, home-manager
+    , neovim-nightly-overlay, zen-browser, nur, ... }:
+    let system = "x86_64-linux";
+    in {
+      nixosConfigurations = {
+        desktop = nixpkgs.lib.nixosSystem {
+          inherit system;
+          modules = [
+            ./hosts/desktop/configuration.nix
+            ./modules/common.nix
 
-          home-manager.nixosModules.home-manager
-          {
-            home-manager.useGlobalPkgs = false;
-            home-manager.useUserPackages = true;
-            home-manager.users.emreaydn = import ./home/emreaydn.nix;
-            home-manager.sharedModules = [ 
-              vicinae.homeManagerModules.default
-              nixvim.homeModules.nixvim
-              zen-browser.homeModules.beta
-              niri.homeModules.niri
-              catppuccin.homeModules.catppuccin
-            ];
-            home-manager.backupFileExtension = "_bk";
-            home-manager.extraSpecialArgs = {
-              inherit neovim-nightly-overlay;
-              inherit nur;
-              inherit awww;
-            };
-          }
-        ];
+            home-manager.nixosModules.home-manager
+            {
+              home-manager.useGlobalPkgs = false;
+              home-manager.useUserPackages = false;
+              home-manager.users.emreaydn = import ./home/emreaydn.nix;
+              home-manager.sharedModules = [
+                vicinae.homeManagerModules.default
+                nixvim.homeModules.nixvim
+                zen-browser.homeModules.beta
+                niri.homeModules.niri
+                catppuccin.homeModules.catppuccin
+              ];
+              home-manager.backupFileExtension = "_bk";
+              home-manager.extraSpecialArgs = {
+                inherit neovim-nightly-overlay;
+                inherit nur;
+                inherit awww;
+              };
+            }
+          ];
+        };
       };
     };
-  };
 
 }
