@@ -1,11 +1,15 @@
+{ pkgs, ... }:
+
 {
   programs.zsh = {
     enable = true;
     enableCompletion = true;
-    autosuggestion.enable = true;
+    autosuggestions.enable = true;
     syntaxHighlighting.enable = true;
 
     shellAliases = {
+      vi = "lvim";
+      vim = "lvim";
       ll = "eza -l --icons";
       la = "eza -la --icons";
       ls = "eza --icons";
@@ -13,15 +17,14 @@
       cd = "z";
     };
 
-    initContent = ''
+    interactiveShellInit = ''
       eval "$(zoxide init zsh)"
     '';
 
-    oh-my-zsh = {
+    ohMyZsh = {
       enable = true;
       theme = "robbyrussell";
       plugins = [ "git" ];
     };
   };
 }
-

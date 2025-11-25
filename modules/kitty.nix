@@ -1,0 +1,21 @@
+{ pkgs, ... }:
+
+{
+  environment.systemPackages = [ pkgs.kitty ];
+
+  # Place kitty config in /etc/xdg/kitty/kitty.conf (system-wide XDG config)
+  environment.etc."xdg/kitty/kitty.conf".text = ''
+    font_family JetBrainsMono Nerd Font
+    font_size 14
+
+    window_padding_width 4
+    hide_window_decorations yes
+    confirm_os_window_close 0
+
+    cursor_shape block
+
+    tab_bar_edge bottom
+    tab_bar_style powerline
+    tab_powerline_style slanted
+  '';
+}
