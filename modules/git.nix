@@ -3,7 +3,7 @@
 {
   programs.git = {
     enable = true;
-    settings = {
+    config = {
       user.name = "aemreaydin";
       user.email = "aeaydin1@gmail.com";
       init.defaultBranch = "main";

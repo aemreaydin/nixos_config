@@ -3,11 +3,6 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
-    home-manager = {
-      url = "github:nix-community/home-manager";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     awww.url = "git+https://codeberg.org/LGFae/awww";
     nur = {
       url = "github:nix-community/NUR";
@@ -31,40 +26,43 @@
     zen-browser = {
       url = "github:0xc000022070/zen-browser-flake";
       inputs.nixpkgs.follows = "nixpkgs";
-      inputs.home-manager.follows = "home-manager";
     };
   };
 
-  outputs = { nixpkgs, awww, catppuccin, vicinae, nixvim, niri, home-manager
+  outputs = { nixpkgs, awww, catppuccin, vicinae, nixvim, niri
     , neovim-nightly-overlay, zen-browser, nur, ... }:
     let system = "x86_64-linux";
     in {
       nixosConfigurations = {
         desktop = nixpkgs.lib.nixosSystem {
           inherit system;
+          specialArgs = {
+            inherit awww;
+            inherit nur;
+            inherit neovim-nightly-overlay;
+            inherit vicinae;
+            inherit zen-browser;
+          };
           modules = [
             ./hosts/desktop/configuration.nix
             ./modules/common.nix
 
-            home-manager.nixosModules.home-manager
-            {
-              home-manager.useGlobalPkgs = false;
-              home-manager.useUserPackages = false;
-              home-manager.users.emreaydn = import ./home/emreaydn.nix;
-              home-manager.sharedModules = [
-                vicinae.homeManagerModules.default
-                nixvim.homeModules.nixvim
-                zen-browser.homeModules.beta
-                niri.homeModules.niri
-                catppuccin.homeModules.catppuccin
-              ];
-              home-manager.backupFileExtension = "_bk";
-              home-manager.extraSpecialArgs = {
-                inherit neovim-nightly-overlay;
-                inherit nur;
-                inherit awww;
-              };
-            }
+            # NixOS modules from flake inputs
+            nixvim.nixosModules.nixvim
+            niri.nixosModules.niri
+            catppuccin.nixosModules.catppuccin
+
+            # User configuration modules
+            ./modules/packages.nix
+            ./modules/zsh.nix
+            ./modules/git.nix
+            ./modules/kitty.nix
+            ./modules/nixvim.nix
+            ./modules/niri
+            ./modules/catppuccin.nix
+            ./modules/vicinae.nix
+            ./modules/mako.nix
+            ./modules/zen-browser.nix
           ];
         };
       };

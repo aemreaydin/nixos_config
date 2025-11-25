@@ -8,6 +8,7 @@
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
+
   networking.networkmanager.enable = true;
 
   time.timeZone = "America/Toronto";
@@ -60,5 +61,4 @@ programs.dconf.enable = true;
   hardware.enableRedistributableFirmware = true;
   hardware.enableAllFirmware = true;
 
-  nixpkgs.config.allowUnfree = true;
 }
