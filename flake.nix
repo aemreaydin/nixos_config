@@ -15,11 +15,6 @@
 
     matugen.url = "github:InioX/matugen";
 
-    mangowc = {
-      url = "github:DreamMaoMao/mangowc";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
 
     nixvim = {
@@ -50,7 +45,6 @@
       sharedModules = [
         inputs.vicinae.homeManagerModules.default
         inputs.nixvim.homeModules.nixvim
-        inputs.mangowc.hmModules.mango
       ];
     in
     {

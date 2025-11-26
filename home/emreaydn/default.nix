@@ -25,7 +25,7 @@
 
     # Desktop
     ./modules/desktop/matugen.nix
-    ./modules/desktop/niri.nix
+    ./modules/desktop/hyprland.nix
 
     # Launchers
     ./modules/programs/launchers/vicinae.nix
