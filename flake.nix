@@ -15,8 +15,8 @@
 
     matugen.url = "github:InioX/matugen";
 
-    niri = {
-      url = "github:sodiboo/niri-flake";
+    mangowc = {
+      url = "github:DreamMaoMao/mangowc";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -50,7 +50,7 @@
       sharedModules = [
         inputs.vicinae.homeManagerModules.default
         inputs.nixvim.homeModules.nixvim
-        inputs.niri.homeModules.niri
+        inputs.mangowc.hmModules.mango
       ];
     in
     {

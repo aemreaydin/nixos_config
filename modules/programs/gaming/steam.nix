@@ -10,4 +10,3 @@
   };
   programs.gamemode.enable = true;
 }
-
